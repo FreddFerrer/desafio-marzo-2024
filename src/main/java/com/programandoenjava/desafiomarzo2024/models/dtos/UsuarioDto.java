@@ -1,16 +1,25 @@
 package com.programandoenjava.desafiomarzo2024.models.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UsuarioDto {
     private Long id;
     private String username;
     private String nombre;
     private String apellido;
     private String email;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String token;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private final String type = "Bearer";
+
+    private String rol;
 }

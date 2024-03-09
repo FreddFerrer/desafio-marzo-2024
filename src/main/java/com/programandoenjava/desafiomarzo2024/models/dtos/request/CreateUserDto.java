@@ -18,7 +18,7 @@ public class CreateUserDto {
     @NotNull
     private String nombre;
 
-    @NotEmpty(message = "surname required")
+    @NotEmpty(message = "apellido required")
     @NotNull
     private String apellido;
 
