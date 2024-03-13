@@ -8,7 +8,7 @@ import com.programandoenjava.desafiomarzo2024.models.entities.Usuario;
 import com.programandoenjava.desafiomarzo2024.models.enums.RolEnum;
 import com.programandoenjava.desafiomarzo2024.models.respositories.IUsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
+import com.programandoenjava.desafiomarzo2024.exceptions.BadRequestException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +27,7 @@ public class AuthService {
 
     public UsuarioDto login(LoginRequestDto request) {
 
-        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getContraseña()));
+        var authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Usuario user= userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token=jwtService.getToken(user);
@@ -43,7 +43,7 @@ public class AuthService {
 
     }
 
-    public UsuarioDto register(CreateUserDto request) throws BadRequestException {
+    public UsuarioDto register(CreateUserDto request) {
 
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new BadRequestException("Username already exists");
@@ -58,7 +58,7 @@ public class AuthService {
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
                 .email(request.getEmail())
-                .contraseña(passwordEncoder.encode( request.getContraseña()))
+                .password(passwordEncoder.encode( request.getPassword()))
                 .rol(RolEnum.CLIENTE)
                 .build();
 

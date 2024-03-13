@@ -36,7 +36,7 @@ public class Usuario implements UserDetails {
     private String email;
 
     @Column(name = "contraseña")
-    private String contraseña;
+    private String password;
 
     @Column(name = "rol")
     @Enumerated(EnumType.STRING)
@@ -48,11 +48,6 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority((rol.name())));
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
     }
 
     @Override
