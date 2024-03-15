@@ -17,6 +17,12 @@ public class Habitacion {
 
     private String caracteristicas;
 
+    private Integer numero;
+
+    private Integer capacidad;
+
+    private Double precio;
+
     @ManyToOne
     @JoinColumn(name = "habitacion_id", nullable=false)
     private Reserva reserva;

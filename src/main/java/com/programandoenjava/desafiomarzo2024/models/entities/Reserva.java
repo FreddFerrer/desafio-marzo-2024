@@ -3,6 +3,7 @@ package com.programandoenjava.desafiomarzo2024.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,10 @@ public class Reserva {
 
     @OneToMany(mappedBy="reserva")
     private Set<Habitacion> habitaciones;
+
+    private Date fechaInicio;
+
+    private Date fechaFin;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
