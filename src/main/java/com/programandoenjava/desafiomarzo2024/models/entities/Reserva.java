@@ -1,5 +1,7 @@
 package com.programandoenjava.desafiomarzo2024.models.entities;
 
+import com.programandoenjava.desafiomarzo2024.models.enums.EstadoReserva;
+import com.programandoenjava.desafiomarzo2024.models.enums.RolEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +26,10 @@ public class Reserva {
     private Date fechaInicio;
 
     private Date fechaFin;
+
+    @Column(name = "estado")
+    @Enumerated(EnumType.STRING)
+    private EstadoReserva estado;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)

@@ -8,8 +8,6 @@ import com.programandoenjava.desafiomarzo2024.models.mappers.IHabitacionMapper;
 import com.programandoenjava.desafiomarzo2024.models.respositories.IHabitacionRepository;
 import com.programandoenjava.desafiomarzo2024.services.IHabitacionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
