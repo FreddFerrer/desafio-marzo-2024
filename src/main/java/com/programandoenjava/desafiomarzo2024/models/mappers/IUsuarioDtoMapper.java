@@ -6,7 +6,7 @@ import com.programandoenjava.desafiomarzo2024.models.entities.Usuario;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UsuarioDtoMapper {
+public interface IUsuarioDtoMapper {
 
     UsuarioDto toDto(Usuario usuario);
 

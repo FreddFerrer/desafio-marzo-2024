@@ -24,6 +24,6 @@ public class Habitacion {
     private Double precio;
 
     @ManyToOne
-    @JoinColumn(name = "habitacion_id", nullable=false)
+    @JoinColumn(name = "reserva_id")
     private Reserva reserva;
 }

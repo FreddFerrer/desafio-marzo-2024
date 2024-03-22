@@ -6,6 +6,7 @@ import com.programandoenjava.desafiomarzo2024.models.dtos.request.CreateUserDto;
 import com.programandoenjava.desafiomarzo2024.models.dtos.request.LoginRequestDto;
 import com.programandoenjava.desafiomarzo2024.models.entities.Usuario;
 import com.programandoenjava.desafiomarzo2024.models.enums.RolEnum;
+import com.programandoenjava.desafiomarzo2024.models.mappers.IUsuarioDtoMapper;
 import com.programandoenjava.desafiomarzo2024.models.respositories.IUsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import com.programandoenjava.desafiomarzo2024.exceptions.BadRequestException;
@@ -23,6 +24,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final IUsuarioDtoMapper usuarioMapper;
 
 
     public UsuarioDto login(LoginRequestDto request) {
@@ -31,15 +33,11 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Usuario user= userRepository.findByUsername(request.getUsername()).orElseThrow();
         String token=jwtService.getToken(user);
-        return UsuarioDto.builder()
-                .id(user.getId())
-                .username(user.getUsername())
-                .nombre(user.getNombre())
-                .apellido(user.getApellido())
-                .email(user.getEmail())
-                .token(token)
-                .rol(user.getRol().name())
-                .build();
+
+        UsuarioDto userDto = usuarioMapper.toDto(user);
+        userDto.setToken(token);
+
+        return userDto;
 
     }
 
@@ -64,14 +62,7 @@ public class AuthService {
 
         userRepository.save(user);
 
-        return UsuarioDto.builder()
-                .id(user.getId())
-                .nombre(user.getNombre())
-                .apellido(user.getApellido())
-                .username(user.getUsername())
-                .email(user.getEmail())
-                .rol(user.getRol().name())
-                .build();
+        return usuarioMapper.toDto(user);
     }
 
 }

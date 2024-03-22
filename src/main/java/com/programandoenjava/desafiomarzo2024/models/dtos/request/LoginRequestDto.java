@@ -1,5 +1,6 @@
 package com.programandoenjava.desafiomarzo2024.models.dtos.request;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +9,11 @@ import lombok.Setter;
 @Setter
 public class LoginRequestDto {
 
-    @NotNull(message = "username empty")
+    @NotEmpty(message = "campo 'username' no debe estar vacio")
+    @NotNull(message = "el campo 'username' no puede ser nulo")
     private String username;
 
-    @NotNull
+    @NotEmpty(message = "campo 'password' no debe estar vacio")
+    @NotNull(message = "el campo 'password' no puede ser nulo")
     private String password;
 }
